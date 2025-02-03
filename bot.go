@@ -30,7 +30,7 @@ func HandleUpdates(updates tgbotapi.UpdatesChannel, bot *tgbotapi.BotAPI, secret
 			log.Println("Wrong user tried to access the bot")
 			continue
 		}
-		log.Println("The User has accesed the bot. It is a honor, " + update.Message.Chat.UserName)
+		log.Println("The User has accessed the bot. It is a honor, " + update.Message.Chat.UserName)
 		switch command {
 		case "start":
 			msg := tgbotapi.NewMessage(update.Message.Chat.ID, "Привет! Используй /otp, чтобы получить свой код для входа в GitHub.")
