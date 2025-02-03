@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"os"
 	"strconv"
+	"sync"
 )
 
 var timeStep int = 30
@@ -36,7 +37,10 @@ func main() {
 
 	bot := LoginBot(botToken)
 
-	go HandleUpdates(bot, webhookURL, secret, chatId)
+	var wg sync.WaitGroup
+	wg.Add(1)
+
+	go HandleUpdates(bot, webhookURL, secret, chatId, &wg)
 
 	err = http.ListenAndServe("0.0.0.0:8443", nil)
 	if err != nil {
