@@ -29,8 +29,8 @@ func main() {
 		log.Fatal("CHAT_ID is wrong")
 	}
 
-	webhookURL := os.Getenv("RENDER_EXTERNAL_URL") + "/webhook"
-	if webhookURL == "/webhook" {
+	webhookURL := os.Getenv("RENDER_EXTERNAL_URL")
+	if webhookURL == "" {
 		log.Fatal("RENDER_EXTERNAL_URL is not set")
 	}
 
@@ -43,8 +43,8 @@ func main() {
 	}
 	log.Println("Webhook URL is " + webhookInfo.URL)
 
-	updates := bot.ListenForWebhook(webhookURL)
-	log.Println("Listening on " + webhookURL)
+	updates := bot.ListenForWebhook("/webhook")
+	log.Println("Listening on " + webhookURL + "/webhook")
 
 	go HandleUpdates(updates, bot, secret, chatId)
 
