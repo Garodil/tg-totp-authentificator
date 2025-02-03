@@ -37,7 +37,8 @@ func HandleUpdates(updates tgbotapi.UpdatesChannel, bot *tgbotapi.BotAPI, secret
 			bot.Send(msg)
 		case "otp":
 			otpCode := generateTOTP(secret)
-			msg := tgbotapi.NewMessage(update.Message.Chat.ID, fmt.Sprintf("Твой TOTP код для GitHub: %s", otpCode))
+			msg := tgbotapi.NewMessage(update.Message.Chat.ID, fmt.Sprintf("Твой TOTP код для GitHub: `%s`", otpCode))
+			msg.ParseMode = "MarkdownV2"
 			bot.Send(msg)
 		}
 	}
