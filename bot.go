@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"log"
-	"sync"
 
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 )
@@ -20,16 +19,8 @@ func LoginBot(botToken string) *tgbotapi.BotAPI {
 	return bot
 }
 
-func HandleUpdates(bot *tgbotapi.BotAPI, webhookURL string, secret string, chatId int64, wg *sync.WaitGroup) {
-	updates := bot.ListenForWebhook(webhookURL)
-	wg.Done()
-	log.Println("Listening for updates on " + webhookURL)
-	webhookInfo, err := bot.GetWebhookInfo()
-	if err != nil {
-		log.Println("Error receiveng webhook info")
-		return
-	}
-	log.Println("Listening for updates on (2)" + webhookInfo.URL)
+func HandleUpdates(updates tgbotapi.UpdatesChannel, bot *tgbotapi.BotAPI, secret string, chatId int64) {
+
 	for {
 		log.Println("Blocked cycle")
 		update := <-updates

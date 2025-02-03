@@ -5,7 +5,6 @@ import (
 	"net/http"
 	"os"
 	"strconv"
-	"sync"
 )
 
 var timeStep int = 30
@@ -37,10 +36,17 @@ func main() {
 
 	bot := LoginBot(botToken)
 
-	var wg sync.WaitGroup
-	wg.Add(1)
+	webhookInfo, err := bot.GetWebhookInfo()
+	if err != nil {
+		log.Println("Error receiveng webhook info")
+		return
+	}
+	log.Println("Webhook URL is " + webhookInfo.URL)
 
-	go HandleUpdates(bot, webhookURL, secret, chatId, &wg)
+	updates := bot.ListenForWebhook(webhookURL)
+	log.Println("Listening on " + webhookURL)
+
+	go HandleUpdates(updates, bot, secret, chatId)
 
 	err = http.ListenAndServe("0.0.0.0:8443", nil)
 	if err != nil {
