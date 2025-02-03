@@ -20,7 +20,7 @@ func main() {
 		log.Fatal("SECRET is not set")
 	}
 
-	chat_id := os.Getenv("CHAT_id")
+	chat_id := os.Getenv("CHAT_ID")
 	if chat_id == "" {
 		log.Fatal("CHAT_ID is not set")
 	}
@@ -38,7 +38,7 @@ func main() {
 
 	go HandleUpdates(bot, webhookURL, secret, chatId)
 
-	err = http.ListenAndServe("localhost:8443", nil)
+	err = http.ListenAndServe("0.0.0.0:8443", nil)
 	if err != nil {
 		log.Fatal("Failed to start server:", err)
 	}
