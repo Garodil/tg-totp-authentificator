@@ -26,9 +26,9 @@ func HandleUpdates(updates tgbotapi.UpdatesChannel, bot *tgbotapi.BotAPI, secret
 		update := <-updates
 		log.Println("Received update")
 		command := update.Message.Command()
-		// if chatId != update.Message.Chat.ID {
-		// 	continue
-		// }
+		if chatId != update.Message.Chat.ID {
+			continue
+		}
 		switch command {
 		case "start":
 			msg := tgbotapi.NewMessage(update.Message.Chat.ID, "Привет! Используй /otp, чтобы получить свой код для входа в GitHub.")
