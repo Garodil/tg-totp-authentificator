@@ -23,7 +23,9 @@ func HandleUpdates(bot *tgbotapi.BotAPI, webhookURL string, secret string, chatI
 	updates := bot.ListenForWebhook(webhookURL)
 	log.Println("Listening for updates on " + webhookURL)
 	for {
+		log.Println("Blocked cycle")
 		update := <-updates
+		log.Println("Received update")
 		command := update.Message.Command()
 		// if chatId != update.Message.Chat.ID {
 		// 	continue
