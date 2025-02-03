@@ -22,6 +22,12 @@ func LoginBot(botToken string) *tgbotapi.BotAPI {
 func HandleUpdates(bot *tgbotapi.BotAPI, webhookURL string, secret string, chatId int64) {
 	updates := bot.ListenForWebhook(webhookURL)
 	log.Println("Listening for updates on " + webhookURL)
+	webhookInfo, err := bot.GetWebhookInfo()
+	if err != nil {
+		log.Println("Error receiveng webhook info")
+		return
+	}
+	log.Println("Listening for updates on (2)" + webhookInfo.URL)
 	for {
 		log.Println("Blocked cycle")
 		update := <-updates
