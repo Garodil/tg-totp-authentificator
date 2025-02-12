@@ -7,6 +7,7 @@ import (
 	tgbotapi "github.com/go-telegram-bot-api/telegram-bot-api/v5"
 )
 
+// Создаёт объект, взаимодействующий с АПИ телеграма
 func LoginBot(botToken string) *tgbotapi.BotAPI {
 	bot, err := tgbotapi.NewBotAPI(botToken)
 	if err != nil {
@@ -19,6 +20,7 @@ func LoginBot(botToken string) *tgbotapi.BotAPI {
 	return bot
 }
 
+// Обрабатывает полученные сообщение от пользователей
 func HandleUpdates(updates tgbotapi.UpdatesChannel, bot *tgbotapi.BotAPI, secret string, chatId int64) {
 
 	for {

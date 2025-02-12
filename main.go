@@ -10,6 +10,7 @@ import (
 var timeStep int = 30
 
 func main() {
+	// Инициализация и валидация переменных окружения
 	botToken := os.Getenv("TELEGRAM_BOT_TOKEN")
 	if botToken == "" {
 		log.Fatal("TELEGRAM_BOT_TOKEN is not set")
@@ -34,6 +35,7 @@ func main() {
 		log.Fatal("RENDER_EXTERNAL_URL is not set")
 	}
 
+	// Инициализация бота
 	bot := LoginBot(botToken)
 
 	webhookInfo, err := bot.GetWebhookInfo()
@@ -43,6 +45,7 @@ func main() {
 	}
 	log.Println("Webhook URL is " + webhookInfo.URL)
 
+	// Прослушивание обновлений по указанному вебхуку
 	updates := bot.ListenForWebhook("/webhook")
 	log.Println("Listening on " + webhookURL + "/webhook")
 
